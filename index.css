@@ -29,15 +29,6 @@ html, body {
     gap: 10px;
 }
 
-/* .message-input-field-input {
-    background-color: #444059;
-    color: #8F8F8F;
-    font-size: 15px;
-    padding: 10px 10px 90px;
-    border: none;
-    border-radius: 8px;
-} */
-
 .message-input-field {
     box-sizing: border-box;
     height: 120px;

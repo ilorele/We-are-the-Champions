@@ -15,6 +15,9 @@ const endorsementsContainerEl = document.querySelector(".endorsements-container"
 
 
 onValue(endorsementsInDB, function(snapshot) {
+
+    clearEndorsementsContainerEl()
+
     let endorsementsArray = Object.entries(snapshot.val())
 
     for(let i = 0; i < endorsementsArray.length; i++) {
@@ -23,16 +26,13 @@ onValue(endorsementsInDB, function(snapshot) {
     }
 })
 
+function clearEndorsementsContainerEl() {
+    endorsementsContainerEl.innerHTML = ''
+}
+
 function clearInputField() {
     messageInputFieldEl.value = "";
 }
-
-// function createEndorsementEl(message) {
-//     const endorsementEl = document.createElement("div");
-//     endorsementEl.classList.add("endorsement");
-//     endorsementEl.textContent = message;
-//     return endorsementEl;
-// }
 
 function appendEndorsement(endorsement) {
     const endorsementID = endorsement[0];
@@ -47,16 +47,14 @@ function appendEndorsement(endorsement) {
 }
 
 publishButtonEl.addEventListener("click", function() {
+    
     const messageToBePublished = messageInputFieldEl.value;
 
     if (messageToBePublished) {
-        // const endorsementEl = createEndorsementEl(messageToBePublished);
 
         push(endorsementsInDB, messageToBePublished);
         clearInputField();
-        // appendEndorsement(endorsementEl);
     } else {
         alert("Your message cannot be an empty message!")
-    }
-    
+    }   
 })
