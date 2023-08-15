@@ -1,0 +1,90 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    background-color: #1B1924;
+}
+
+.content-container {
+    margin: 0 auto;
+    max-width: 400px;
+    padding: 60px 40px 60px;
+    text-align: center;
+}
+
+.image {
+    width: 150px;
+    height: auto;
+}
+
+.header {
+    margin: 20px 0;
+    color: #FFFFFF;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.input-section-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* .message-input-field-input {
+    background-color: #444059;
+    color: #8F8F8F;
+    font-size: 15px;
+    padding: 10px 10px 90px;
+    border: none;
+    border-radius: 8px;
+} */
+
+.message-input-field {
+    box-sizing: border-box;
+    height: 120px;
+    resize: none;
+    background-color: #444059;
+    color: #8F8F8F;
+    font-size: 15px;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+}
+
+.publish-btn {
+    background-color: #28A9F1;
+    padding: 20px 10px;
+    border: none;
+    border-radius: 8px;
+    color: #04131C;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.publish-btn:hover {
+    background-color: hsl(201, 88%, 40%);
+}
+
+.publish-btn:active {
+    background-color: #28A9F1;
+}
+
+.content-divider {
+    margin: 20px 0;
+    color: #FFFFFF;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.endorsements-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.endorsement {
+    background-color: #FFFFFF;
+    color: #1B1924;
+    padding: 15px;
+    text-align: left;
+    overflow-wrap: break-word;
+}
