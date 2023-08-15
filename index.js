@@ -42,12 +42,16 @@ function appendEndorsement(endorsement) {
     endorsementEl.classList.add("endorsement");
     endorsementEl.textContent = endorsementMessage;
 
-
     endorsementsContainerEl.appendChild(endorsementEl)
+
+    endorsementEl.addEventListener("dblclick", function() {
+        let exactLocationOfEndorsementInDB = ref(database, `endorsements/${endorsementID}`);
+        remove(exactLocationOfEndorsementInDB)
+    })
 }
 
 publishButtonEl.addEventListener("click", function() {
-    
+
     const messageToBePublished = messageInputFieldEl.value;
 
     if (messageToBePublished) {
