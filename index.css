@@ -2,10 +2,14 @@ html, body {
     margin: 0;
     padding: 0;
     background-color: #1B1924;
+    user-select: none;
 }
 
 .content-container {
     margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
     max-width: 400px;
     padding: 60px 40px 60px;
     text-align: center;
@@ -15,6 +19,7 @@ html, body {
 .image {
     width: 150px;
     height: auto;
+    align-self: center;
 }
 
 .header {
@@ -30,10 +35,7 @@ html, body {
     gap: 10px;
 }
 
-.message-input-field {
-    box-sizing: border-box;
-    height: 120px;
-    resize: none;
+.input-box {
     background-color: #444059;
     color: #8F8F8F;
     font-size: 15px;
@@ -42,7 +44,27 @@ html, body {
     border-radius: 8px;
 }
 
+.message-input-field {
+    box-sizing: border-box;
+    width: 100%;
+    height: 120px;
+    resize: none;
+}
+
+.from-who-container {
+    display: flex;
+    width: 100%;
+    gap: 10px;
+}
+
+.from-input-field,
+.to-input-field {
+    box-sizing: border-box;
+    width: 50%;
+}
+
 .publish-btn {
+    margin-top: 10px;
     background-color: #28A9F1;
     padding: 20px 10px;
     border: none;
@@ -50,6 +72,7 @@ html, body {
     color: #04131C;
     font-size: 22px;
     font-weight: bold;
+    cursor: pointer;
 }
 
 .publish-btn:hover {

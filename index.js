@@ -16,13 +16,18 @@ const endorsementsContainerEl = document.querySelector(".endorsements-container"
 
 onValue(endorsementsInDB, function(snapshot) {
 
-    clearEndorsementsContainerEl()
+    if(snapshot.exists()) {
 
-    let endorsementsArray = Object.entries(snapshot.val())
+        clearEndorsementsContainerEl()
 
-    for(let i = 0; i < endorsementsArray.length; i++) {
-        let currentEndorsement = endorsementsArray[i];
-        appendEndorsement(currentEndorsement)
+        let endorsementsArray = Object.entries(snapshot.val())
+
+        for(let i = 0; i < endorsementsArray.length; i++) {
+            let currentEndorsement = endorsementsArray[i];
+            appendEndorsement(currentEndorsement)
+        }
+    } else {
+        clearEndorsementsContainerEl()
     }
 })
 
