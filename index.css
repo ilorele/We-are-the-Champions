@@ -103,3 +103,17 @@ html, body {
     text-align: left;
     overflow-wrap: break-word;
 }
+
+.endorsement-to-section {
+    font-weight: bold;
+}
+
+.endorsement-message-section {
+    margin: 10px 0;
+}
+
+.endorsement-footer-section {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+}

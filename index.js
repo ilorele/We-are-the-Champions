@@ -12,6 +12,8 @@ const endorsementsInDB = ref(database, "endorsements")
 const messageInputFieldEl = document.querySelector(".message-input-field");
 const publishButtonEl = document.querySelector(".publish-btn");
 const endorsementsContainerEl = document.querySelector(".endorsements-container");
+const fromInputFieldEl = document.querySelector(".from-input-field");
+const toInputFieldEl = document.querySelector(".to-input-field");
 
 
 onValue(endorsementsInDB, function(snapshot) {
@@ -35,17 +37,17 @@ function clearEndorsementsContainerEl() {
     endorsementsContainerEl.innerHTML = ''
 }
 
-function clearInputField() {
+function clearInputFields() {
     messageInputFieldEl.value = "";
+    fromInputFieldEl.value = "";
+    toInputFieldEl.value = ""
 }
 
 function appendEndorsement(endorsement) {
     const endorsementID = endorsement[0];
-    const endorsementMessage = endorsement[1];
+    const endorsementInput = endorsement[1];
 
-    const endorsementEl = document.createElement("div");
-    endorsementEl.classList.add("endorsement");
-    endorsementEl.textContent = endorsementMessage;
+    const endorsementEl = createEndorsementEl(endorsementInput);
 
     endorsementsContainerEl.appendChild(endorsementEl)
 
@@ -55,14 +57,63 @@ function appendEndorsement(endorsement) {
     })
 }
 
+function createEndorsementEl(endorsementInput) {
+    const toSection = createEndorsementSectionEl("To ", endorsementInput.to, "endorsement-to-section");
+    const messageSection = createEndorsementSectionEl("", endorsementInput.message, "endorsement-message-section");
+    const fromSection = createEndorsementSectionEl("From ", endorsementInput.from);
+    const heartCounterSection = createEndorsementSectionEl("❤️ ", endorsementInput.hearts);
+
+    const footerSection = createfooterSection();
+    footerSection.appendChild(fromSection);
+    footerSection.appendChild(heartCounterSection);
+    
+    const endorsementEl = document.createElement("div");
+    endorsementEl.classList.add("endorsement");
+
+    endorsementEl.appendChild(toSection);
+    endorsementEl.appendChild(messageSection);
+    endorsementEl.appendChild(footerSection);
+
+    return endorsementEl
+
+}
+
+function createEndorsementSectionEl(sectionInitialValue, sectionInput, cssClass) {
+    const sectionEl = document.createElement("div");
+
+    if (cssClass !== undefined) {
+        sectionEl.classList.add(cssClass);
+    }
+
+    sectionEl.textContent = sectionInitialValue + sectionInput;
+
+    return sectionEl
+}
+
+function createfooterSection() {
+    const footerSection = document.createElement("div");
+    footerSection.classList.add("endorsement-footer-section");
+
+    return footerSection
+}
+
 publishButtonEl.addEventListener("click", function() {
 
-    const messageToBePublished = messageInputFieldEl.value;
+    const endorsementMessage = messageInputFieldEl.value;
+    const messageTo = toInputFieldEl.value;
+    const messageFrom = fromInputFieldEl.value;
 
-    if (messageToBePublished) {
+    const messageObject = {
+        to: messageTo,
+        message: endorsementMessage,
+        from: messageFrom,
+        hearts: 0
+    }
 
-        push(endorsementsInDB, messageToBePublished);
-        clearInputField();
+    if (endorsementMessage && messageTo && messageFrom) {
+
+        push(endorsementsInDB, messageObject);
+        clearInputFields();
     } else {
         alert("Your message cannot be an empty message!")
     }   
