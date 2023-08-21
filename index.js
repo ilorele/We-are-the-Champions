@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js"
-import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"
+import { getDatabase, ref, push, onValue, remove, update, get } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"
 
 const appSettings = {
     databaseURL: "https://we-are-the-champions-pro-22175-default-rtdb.europe-west1.firebasedatabase.app/"
@@ -17,9 +17,7 @@ const toInputFieldEl = document.querySelector(".to-input-field");
 
 
 onValue(endorsementsInDB, function(snapshot) {
-
     if(snapshot.exists()) {
-
         clearEndorsementsContainerEl()
 
         let endorsementsArray = Object.entries(snapshot.val())
@@ -55,13 +53,23 @@ function appendEndorsement(endorsement) {
         let exactLocationOfEndorsementInDB = ref(database, `endorsements/${endorsementID}`);
         remove(exactLocationOfEndorsementInDB)
     })
+
+    const heartCounter = endorsementEl.querySelector(".endorsement-heart-counter")
+    heartCounter.addEventListener("click", function() {   
+        update(ref(database), {
+            [`endorsements/${endorsementID}`]: {
+                ...endorsementInput,
+                hearts: endorsementInput.hearts + 1
+            }
+        })
+    })
 }
 
 function createEndorsementEl(endorsementInput) {
     const toSection = createEndorsementSectionEl("To ", endorsementInput.to, "endorsement-to-section");
     const messageSection = createEndorsementSectionEl("", endorsementInput.message, "endorsement-message-section");
     const fromSection = createEndorsementSectionEl("From ", endorsementInput.from);
-    const heartCounterSection = createEndorsementSectionEl("❤️ ", endorsementInput.hearts);
+    const heartCounterSection = createEndorsementSectionEl("❤️ ", endorsementInput.hearts, "endorsement-heart-counter");
 
     const footerSection = createfooterSection();
     footerSection.appendChild(fromSection);
@@ -98,7 +106,6 @@ function createfooterSection() {
 }
 
 publishButtonEl.addEventListener("click", function() {
-
     const endorsementMessage = messageInputFieldEl.value;
     const messageTo = toInputFieldEl.value;
     const messageFrom = fromInputFieldEl.value;
@@ -111,7 +118,6 @@ publishButtonEl.addEventListener("click", function() {
     }
 
     if (endorsementMessage && messageTo && messageFrom) {
-
         push(endorsementsInDB, messageObject);
         clearInputFields();
     } else {
